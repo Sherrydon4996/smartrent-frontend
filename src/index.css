@@ -1,0 +1,316 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Mobile-first font sizes */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@layer base {
+  :root {
+    /* SmartRent Manager Light Theme */
+    --background: 210 14% 97%; /* #F8F9FA */
+    --foreground: 210 11% 15%; /* #212529 */
+
+    --card: 0 0% 100%; /* #FFFFFF */
+    --card-foreground: 210 11% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 11% 15%;
+
+    --primary: 211 100% 50%; /* #007BFF */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 9% 46%; /* #6C757D */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 14% 89%; /* #E2E6EA */
+    --muted-foreground: 210 9% 46%;
+
+    --accent: 211 100% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 134 61% 41%; /* #28A745 */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 45 100% 51%; /* #FFC107 */
+    --warning-foreground: 210 11% 15%;
+
+    --danger: 354 70% 54%; /* #DC3545 */
+    --danger-foreground: 0 0% 100%;
+
+    --destructive: 354 70% 54%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 14% 89%; /* #E2E6EA */
+    --input: 210 14% 89%;
+    --ring: 211 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom tokens */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(211, 100%, 50%) 0%,
+      hsl(211, 100%, 40%) 100%
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(211, 100%, 50%) 0%,
+      hsl(220, 90%, 35%) 100%
+    );
+    --shadow-card:
+      0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+    --shadow-card-hover:
+      0 4px 12px rgba(0, 0, 0, 0.1), 0 8px 24px rgba(0, 0, 0, 0.08);
+    --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
+
+    /* Status colors */
+    --status-paid: 134 61% 91%; /* #D4EDDA */
+    --status-paid-text: 134 61% 25%;
+    --status-overdue: 354 100% 90%; /* #FFCCCC */
+    --status-overdue-text: 354 70% 30%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 210 11% 15%;
+    --sidebar-primary: 211 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 14% 95%;
+    --sidebar-accent-foreground: 210 11% 15%;
+    --sidebar-border: 210 14% 89%;
+    --sidebar-ring: 211 100% 50%;
+
+    /* Building colors */
+    --building-lighthouse: 211 100% 50%;
+    --building-lighthouse-bg: 211 100% 96%;
+    --building-blueheart: 199 89% 48%;
+    --building-blueheart-bg: 199 89% 95%;
+    --building-greenvalley: 142 71% 45%;
+    --building-greenvalley-bg: 142 71% 95%;
+    --building-sunsetplaza: 25 95% 53%;
+    --building-sunsetplaza-bg: 25 95% 95%;
+  }
+
+  .dark {
+    /* SmartRent Manager Dark Theme */
+    --background: 0 0% 7%; /* #121212 */
+    --foreground: 0 0% 88%; /* #E0E0E0 */
+
+    --card: 0 0% 12%; /* #1E1E1E */
+    --card-foreground: 0 0% 88%;
+
+    --popover: 0 0% 12%;
+    --popover-foreground: 0 0% 88%;
+
+    --primary: 217 91% 52%; /* #0D6EFD */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 11% 71%; /* #ADB5BD */
+    --secondary-foreground: 0 0% 7%;
+
+    --muted: 210 9% 22%; /* #343A40 */
+    --muted-foreground: 210 11% 71%;
+
+    --accent: 217 91% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --success: 152 69% 31%; /* #198754 */
+    --success-foreground: 0 0% 100%;
+
+    --warning: 45 100% 51%; /* #FFC107 */
+    --warning-foreground: 0 0% 7%;
+
+    --danger: 354 70% 54%; /* #DC3545 */
+    --danger-foreground: 0 0% 100%;
+
+    --destructive: 354 70% 54%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 9% 22%; /* #343A40 */
+    --input: 210 9% 22%;
+    --ring: 217 91% 52%;
+
+    /* Custom tokens dark */
+    --gradient-primary: linear-gradient(
+      135deg,
+      hsl(217, 91%, 52%) 0%,
+      hsl(217, 91%, 40%) 100%
+    );
+    --gradient-hero: linear-gradient(
+      135deg,
+      hsl(217, 91%, 45%) 0%,
+      hsl(220, 80%, 25%) 100%
+    );
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.2);
+    --shadow-card-hover:
+      0 4px 12px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.3);
+    --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.4);
+
+    /* Status colors dark */
+    --status-paid: 152 69% 15%; /* #0F5132 */
+    --status-paid-text: 152 69% 70%;
+    --status-overdue: 354 70% 15%; /* #4D0000 */
+    --status-overdue-text: 354 70% 70%;
+
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 88%;
+    --sidebar-primary: 217 91% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 9% 18%;
+    --sidebar-accent-foreground: 0 0% 88%;
+    --sidebar-border: 210 9% 22%;
+    --sidebar-ring: 217 91% 52%;
+
+    /* Building colors dark */
+    --building-lighthouse: 217 91% 60%;
+    --building-lighthouse-bg: 217 91% 15%;
+    --building-blueheart: 199 89% 55%;
+    --building-blueheart-bg: 199 89% 15%;
+    --building-greenvalley: 142 71% 50%;
+    --building-greenvalley-bg: 142 71% 15%;
+    --building-sunsetplaza: 25 95% 58%;
+    --building-sunsetplaza-bg: 25 95% 15%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+
+  /* Hero heading font */
+  .font-display {
+    font-family: "DM Sans", "Inter", system-ui, sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .shadow-card-hover {
+    box-shadow: var(--shadow-card-hover);
+  }
+
+  .shadow-elevated {
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .status-paid {
+    background-color: hsl(var(--status-paid));
+    color: hsl(var(--status-paid-text));
+  }
+
+  .status-overdue {
+    background-color: hsl(var(--status-overdue));
+    color: hsl(var(--status-overdue-text));
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.4s ease-out forwards;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--secondary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--primary));
+}
