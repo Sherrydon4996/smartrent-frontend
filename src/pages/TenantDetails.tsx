@@ -12,6 +12,7 @@ import {
   Droplets,
   Trash2,
   Users,
+  Mail,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -61,6 +62,7 @@ export function TenantDetails() {
     year: selectedYear,
   });
   const tenants = data?.records ?? [];
+  console.log("tenant details", data);
 
   const tenant = tenants?.find((t) => t.id === id);
   const currentMonthRecord = monthlyRecordsData?.find(
@@ -415,6 +417,15 @@ export function TenantDetails() {
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4 text-muted-foreground" />
                   <p className="font-medium text-foreground">{tenant.mobile}</p>
+                </div>
+              </div>
+              <div>
+                <p className="text-sm text-muted-foreground">Email Address</p>
+                <div className="flex items-center gap-2">
+                  <Mail className="w-4 h-4 text-muted-foreground" />
+                  <p className="font-medium text-foreground">
+                    {tenant?.email || "N/A"}
+                  </p>
                 </div>
               </div>
               <div>
