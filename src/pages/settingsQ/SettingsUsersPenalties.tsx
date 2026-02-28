@@ -448,183 +448,186 @@ export function SettingsUsersPenalties() {
       </Card>
 
       {/* User Management (Admin only) */}
-
-      <Card className="lg:col-span-2">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Shield className="w-5 h-5" />
-            User Management
-          </CardTitle>
-          <CardDescription>Manage system users and permissions</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-8">
-          {/* Add New User */}
-          <div className="p-5 bg-muted/50 rounded-lg border">
-            <h3 className="font-medium text-lg mb-4">Add New User</h3>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div>
-                <Label>Username *</Label>
-                <Input
-                  value={newUsername}
-                  onChange={(e) => setNewUsername(e.target.value)}
-                  placeholder="Enter username"
-                />
-              </div>
-              <div>
-                <Label>Mobile *</Label>
-                <Input
-                  value={newMobile}
-                  onChange={(e) => setNewMobile(e.target.value)}
-                  placeholder="e.g., +254700000000"
-                />
-              </div>
-              <div>
-                <Label>Password *</Label>
-                <Input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Enter password"
-                />
-              </div>
-              <div className="flex items-end">
-                <div className="w-full">
-                  <Label>Role</Label>
-                  <Select value={newRole} onValueChange={setNewRole}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="user">User</SelectItem>
-                      <SelectItem value="admin">Admin</SelectItem>
-                    </SelectContent>
-                  </Select>
+      {user.role === "admin" && (
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Shield className="w-5 h-5" />
+              User Management
+            </CardTitle>
+            <CardDescription>
+              Manage system users and permissions
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-8">
+            {/* Add New User */}
+            <div className="p-5 bg-muted/50 rounded-lg border">
+              <h3 className="font-medium text-lg mb-4">Add New User</h3>
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                  <Label>Username *</Label>
+                  <Input
+                    value={newUsername}
+                    onChange={(e) => setNewUsername(e.target.value)}
+                    placeholder="Enter username"
+                  />
+                </div>
+                <div>
+                  <Label>Mobile *</Label>
+                  <Input
+                    value={newMobile}
+                    onChange={(e) => setNewMobile(e.target.value)}
+                    placeholder="e.g., +254700000000"
+                  />
+                </div>
+                <div>
+                  <Label>Password *</Label>
+                  <Input
+                    type="password"
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="Enter password"
+                  />
+                </div>
+                <div className="flex items-end">
+                  <div className="w-full">
+                    <Label>Role</Label>
+                    <Select value={newRole} onValueChange={setNewRole}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="user">User</SelectItem>
+                        <SelectItem value="admin">Admin</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
               </div>
+              <Button onClick={handleAddUser} className="mt-4">
+                <Plus className="w-4 h-4 mr-2" />
+                Create User
+              </Button>
             </div>
-            <Button onClick={handleAddUser} className="mt-4">
-              <Plus className="w-4 h-4 mr-2" />
-              Create User
-            </Button>
-          </div>
 
-          {/* Existing Users */}
-          <div>
-            <h3 className="font-medium text-lg mb-4">
-              Existing Users ({users.length})
-            </h3>
-            {usersLoading ? (
-              <div className="space-y-3">
-                {[1, 2, 3].map((i) => (
-                  <Skeleton key={i} className="h-20 w-full" />
-                ))}
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {users.map((u) => (
-                  <div key={u.id} className="p-4 bg-muted rounded-lg">
-                    {editingUserId === u.id ? (
-                      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <Input
-                          value={editUsername}
-                          onChange={(e) => setEditUsername(e.target.value)}
-                          placeholder="Username"
-                        />
-                        <Input
-                          value={editMobile}
-                          onChange={(e) => setEditMobile(e.target.value)}
-                          placeholder="Mobile"
-                        />
-                        <Select value={editRole} onValueChange={setEditRole}>
-                          <SelectTrigger>
-                            <SelectValue />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="user">User</SelectItem>
-                            <SelectItem value="admin">Admin</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <div className="flex gap-2 items-end">
-                          <Button size="sm" onClick={handleUpdateUser}>
-                            Save
-                          </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => setEditingUserId(null)}
-                          >
-                            Cancel
-                          </Button>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="flex justify-between items-center">
-                        <div>
-                          <p className="font-medium">{u.username}</p>
-                          <p className="text-sm text-muted-foreground">
-                            Mobile: {u.mobile} • Role:{" "}
-                            <span className="capitalize font-medium">
-                              {u.role}
-                            </span>{" "}
-                            • Status:{" "}
-                            <span
-                              className={
-                                u.status === "suspended"
-                                  ? "text-red-600 font-medium"
-                                  : "text-green-600 font-medium"
-                              }
-                            >
-                              {u.status || "active"}
-                            </span>
-                          </p>
-                        </div>
-                        <div className="flex gap-2">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => startEditingUser(u)}
-                          >
-                            <Edit className="w-4 h-4" />
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            size="sm"
-                            onClick={() => handleDeleteUser(u.id, u.username)}
-                          >
-                            Delete
-                          </Button>
-                          {u.status === "suspended" ? (
+            {/* Existing Users */}
+            <div>
+              <h3 className="font-medium text-lg mb-4">
+                Existing Users ({users.length})
+              </h3>
+              {usersLoading ? (
+                <div className="space-y-3">
+                  {[1, 2, 3].map((i) => (
+                    <Skeleton key={i} className="h-20 w-full" />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {users.map((u) => (
+                    <div key={u.id} className="p-4 bg-muted rounded-lg">
+                      {editingUserId === u.id ? (
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                          <Input
+                            value={editUsername}
+                            onChange={(e) => setEditUsername(e.target.value)}
+                            placeholder="Username"
+                          />
+                          <Input
+                            value={editMobile}
+                            onChange={(e) => setEditMobile(e.target.value)}
+                            placeholder="Mobile"
+                          />
+                          <Select value={editRole} onValueChange={setEditRole}>
+                            <SelectTrigger>
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="user">User</SelectItem>
+                              <SelectItem value="admin">Admin</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <div className="flex gap-2 items-end">
+                            <Button size="sm" onClick={handleUpdateUser}>
+                              Save
+                            </Button>
                             <Button
                               variant="outline"
                               size="sm"
-                              className="bg-green-50 hover:bg-green-100 text-green-700 border-green-300"
-                              onClick={() =>
-                                handleUnsuspendUser(u.id, u.username)
-                              }
+                              onClick={() => setEditingUserId(null)}
                             >
-                              Unsuspend
+                              Cancel
                             </Button>
-                          ) : (
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                handleSuspendUser(u.id, u.username)
-                              }
-                            >
-                              Suspend
-                            </Button>
-                          )}
+                          </div>
                         </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+                      ) : (
+                        <div className="flex justify-between items-center">
+                          <div>
+                            <p className="font-medium">{u.username}</p>
+                            <p className="text-sm text-muted-foreground">
+                              Mobile: {u.mobile} • Role:{" "}
+                              <span className="capitalize font-medium">
+                                {u.role}
+                              </span>{" "}
+                              • Status:{" "}
+                              <span
+                                className={
+                                  u.status === "suspended"
+                                    ? "text-red-600 font-medium"
+                                    : "text-green-600 font-medium"
+                                }
+                              >
+                                {u.status || "active"}
+                              </span>
+                            </p>
+                          </div>
+                          <div className="flex gap-2">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => startEditingUser(u)}
+                            >
+                              <Edit className="w-4 h-4" />
+                            </Button>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              onClick={() => handleDeleteUser(u.id, u.username)}
+                            >
+                              Delete
+                            </Button>
+                            {u.status === "suspended" ? (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="bg-green-50 hover:bg-green-100 text-green-700 border-green-300"
+                                onClick={() =>
+                                  handleUnsuspendUser(u.id, u.username)
+                                }
+                              >
+                                Unsuspend
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() =>
+                                  handleSuspendUser(u.id, u.username)
+                                }
+                              >
+                                Suspend
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
     </>
   );
 }
