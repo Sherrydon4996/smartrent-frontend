@@ -421,9 +421,12 @@ export function TenantDetails() {
               </div>
               <div>
                 <p className="text-sm text-muted-foreground">Email Address</p>
-                <div className="flex items-center gap-2">
-                  <Mail className="w-4 h-4 text-muted-foreground" />
-                  <p className="font-medium text-foreground">
+                <div className="flex items-center gap-2 min-w-0">
+                  <Mail className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                  <p
+                    className="font-medium text-foreground break-all line-clamp-1"
+                    title={tenant?.email || "N/A"} // tooltip shows full email on hover
+                  >
                     {tenant?.email || "N/A"}
                   </p>
                 </div>
